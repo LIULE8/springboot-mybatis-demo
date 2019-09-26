@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.leo.mybatis.dao.mapper.UserMapper">
+    <select id="selectById" resultType="user" parameterType="java.lang.Integer">
+        select * from t_user where id = #{id}
+    </select>
+    <delete id="deleteById" parameterType="java.lang.Integer">
+        delete from t_user where id = #{id}
+    </delete>
+    <update id="updateById" parameterType="user">
+        update t_user
+        set user_name = #{user.userName}, password = #{user.password}, age = #{user.age}
+        where id = #{user.id}
+    </update>
+    <insert id="insert" parameterType="user">
+        insert into t_user (user_name, password, age)
+        values (#{user.userName}, #{user.password}, #{user.age})
+    </insert>
+    <insert id="insertSelective" parameterType="user">
+        insert into t_user
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="user.id != null">
+                id,
+            </if>
+            <if test="user.userName != null">
+                user_name,
+            </if>
+            <if test="user.password != null">
+                password,
+            </if>
+            <if test="user.age != null">
+                age
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="user.id != null">
+                #{user.id},
+            </if>
+            <if test="user.userName != null">
+                #{user.userName},
+            </if>
+            <if test="user.password != null">
+                #{user.password},
+            </if>
+            <if test="user.age != null">
+                #{user.age}
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByIdSelective" parameterType="user">
+        update t_user
+        <set>
+            <if test="user.userName != null">
+                user_name = #{user.userName},
+            </if>
+            <if test="user.password != null">
+                password = #{user.password},
+            </if>
+            <if test="user.age != null">
+                age = #{user.age}
+            </if>
+        </set>
+        where id = #{user.id}
+    </update>
+</mapper>

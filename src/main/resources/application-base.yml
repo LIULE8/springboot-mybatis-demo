@@ -1,0 +1,22 @@
+spring:
+  application:
+    name: springboot-mybatis-demo
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: create
+    open-in-view: false
+  jooq:
+    sql-dialect: h2
+  main:
+    allow-bean-definition-overriding: true
+
+server:
+  port: 9999
+
+# mybatis 配置，这里只配置别名，驼峰式命名，以及mapper.xml的配置
+mybatis:
+  type-aliases-package: com.leo.mybatis.dao.entity
+  mapper-locations: classpath:mapper/*Mapper.xml
+  configuration:
+    map-underscore-to-camel-case: true
